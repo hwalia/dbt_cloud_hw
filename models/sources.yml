@@ -1,0 +1,7 @@
+sources:
+  - name: snowflake_first_project
+    database: demo  
+    schema: demo_schema  
+    tables:
+      - name: weather
+      - name: bike
