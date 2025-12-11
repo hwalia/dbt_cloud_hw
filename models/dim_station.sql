@@ -1,0 +1,6 @@
+SELECT 
+START_STATIO_ID AS STATION_ID
+,START_STATION_NAME AS START_STATION_NAME
+,START_LAT 
+,START_LNG
+FROM {{ source('snowflake_first_project', 'bike') }}
