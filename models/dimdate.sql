@@ -4,16 +4,8 @@ WITH CTE AS
         ,DATE(TO_TIMESTAMP(STARTED_AT)) STARTED_AT_DATE
         ,HOUR(TO_TIMESTAMP(STARTED_AT)) STARTED_AT_HOUR
         ,MONTH(TO_TIMESTAMP(STARTED_AT)) STARTED_AT_MONTH
-        ,CASE WHEN DAYNAME((TO_TIMESTAMP(STARTED_AT))) IN ('Sat','Sun')
-            THEN 'WEEKEND'
-        ELSE 'WEEKDAY' END STARTED_AT_DAYTYPE
-        ,CASE WHEN MONTH(TO_TIMESTAMP(STARTED_AT)) IN (12,1,2)
-            THEN 'WINTER'
-            WHEN MONTH(TO_TIMESTAMP(STARTED_AT)) IN (3,4,5)
-            THEN 'SPRING'
-            WHEN MONTH(TO_TIMESTAMP(STARTED_AT)) IN (6,7,8)
-            THEN 'SUMMER'
-            ELSE 'FALL' END STARTED_AT_WEATHER
+        ,{{get_day_type('STARTED_AT')}} AS STARTED_AT_DAYTYPE
+        ,{{get_season('STARTED_AT')}} AS STARTED_AT_WEATHER
        FROM {{ source('snowflake_first_project', 'bike') }}
     WHERE STARTED_AT != 'started_at'
 )
