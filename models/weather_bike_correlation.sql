@@ -1,9 +1,9 @@
 WITH CTE AS (
     select t.*
         ,w.*
-    from {{ ref('trip_fact') }} t
+    from {{ ref('fact_trip') }} t
     left join {{ ref('daily_weather') }} w
-    on t.TRIP_DATE = w.DAILY_WEATHER
+    on t.TRIP_DATE = w.RECORD_DATE
 )
 select *
 from CTE
